@@ -1,18 +1,20 @@
 /** @jsx h */
 import { h } from "preact";
+import { Handlers, PageProps } from "$fresh/server.ts";
+import { WithSession } from "fresh-session";
 
-export default function () {
+export const handler: Handlers<{}, WithSession> = {
+  GET(req, ctx) {
+    const date = new Date(ctx.state.session.get("lastReachedAt"));
+    ctx.state.session.set("lastReachedAt", new Date().toString());
+    return ctx.render({ date });
+  },
+};
+
+export default function ({ data }: PageProps<{ date: Date }>) {
   return (
     <div>
-      <img
-        src="/logo.svg"
-        height="100px"
-        alt="the fresh logo: a sliced lemon dripping with juice"
-      />
-      <p>
-        Welcome to `fresh`. Try update this message in the ./routes/index.tsx
-        file, and refresh.
-      </p>
+      {data.date.toString()}
     </div>
   );
 }

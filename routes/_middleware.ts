@@ -1,8 +1,5 @@
 import { MiddlewareHandlerContext } from "$fresh/server.ts";
-import {
-  cookieSession,
-  WithSession,
-} from "https://deno.land/x/fresh_session@0.1.7/mod.ts";
+import { cookieSession, WithSession } from "fresh-session";
 
 export type State = WithSession;
 
